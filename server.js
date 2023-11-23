@@ -1,9 +1,8 @@
 const express = require("express");
-const dotenv = require("dotenv");
+const routeNotFoundMiddleware = require('./middlewares/routeNotFound');
 const postRouter = require("./routers/postRouter")
 const app = express();
 
-dotenv.config();
 
 app.use(express.json());
 
