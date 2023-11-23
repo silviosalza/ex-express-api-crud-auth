@@ -11,9 +11,10 @@ return res.json(data)
 
 async function show(req,res){
 const slug = req.params.slug
+const content = req.params.body
 const data = await prisma.post.findUnique({
     where: {
-        slug: slug
+        slug: slug,
     }
 })
 return res.json(data)  
