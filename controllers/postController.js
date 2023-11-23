@@ -59,8 +59,13 @@ async function update(req,res){
 
 
 async function destroy(req,res){
-
-    
+    const slug = req.params.slug;
+await prisma.post.delete({
+    where: {
+        slug: slug,
+    }
+})
+    return res.json({message: "Post obliterato"})
 }
 
 
