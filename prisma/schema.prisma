@@ -12,6 +12,7 @@ datasource db {
 
 //prisma usa il camel case
 model Post {
+  @@map("Post table")
 title String @db.VarChar(30)
 slug String @unique @db.VarChar(60)
 image String? @db.Text
