@@ -36,9 +36,28 @@ return res.json(newPost)
 
 
 async function update(req,res){
+    const slug = req.params.slug;
+    const postToUpdate = req.body;
 
-    
+    const data = await prisma.post.findUnique({
+        where: {
+            slug: slug,
+        }
+    })
+    if(!data){
+        throw new Error ('Not Found')
+    }
+    const postUpdated = await prisma.post.update({
+       data: postToUpdate,
+       where: {
+        slug: slug
+       }
+    })
+   return res.json(postUpdated) 
 }
+
+
+
 async function destroy(req,res){
 
     
