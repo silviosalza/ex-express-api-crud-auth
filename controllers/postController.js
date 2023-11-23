@@ -3,15 +3,27 @@ const prisma = new PrismaClient();
 
 
 async function index(req,res){
-//fina many ritorna una promise, quindi faccio un await
-const data = await prisma.post.findMany()
+const postToFind = req.body
+console.log(postToFind);
+//find many ritorna una promise, quindi faccio un await
+const data = await prisma.post.findMany({
+    where: {
+        published: postToFind.published,
+        title: {
+            contains: postToFind.title
+        },
+        content:{
+            contains:postToFind.content
+        }
+    }
+})
+
 return res.json(data)
 
 }
 
 async function show(req,res){
 const slug = req.params.slug
-const content = req.params.body
 const data = await prisma.post.findUnique({
     where: {
         slug: slug,
