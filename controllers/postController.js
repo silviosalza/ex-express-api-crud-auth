@@ -40,7 +40,16 @@ const newPost = await prisma.post.create({
         slug: postToAdd.slug,
         content: postToAdd.content,
         image: postToAdd.image,
-        published: postToAdd.published
+        published: postToAdd.published,
+        tags: {
+            connect : postToAdd.tags.map(tagId =>({
+                "id": tagId
+            }))
+        }
+    },
+    include : {
+        tags: true
+        
     }
 })
 return res.json(newPost)  
