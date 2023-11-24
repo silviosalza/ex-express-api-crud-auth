@@ -21,6 +21,11 @@ const data = await prisma.post.findMany({
             select:{
                 name: true
             }
+        },
+        category: {
+            select:{
+                name: true
+            }
         }
     }
 })
