@@ -52,7 +52,12 @@ const newPost = await prisma.post.create({
             connect : postToAdd.tags.map(tagId =>({
                 "id": tagId
             }))
-        }
+        },
+        category:{
+            connect:{
+                id: postToAdd.categoryId
+            }
+        } 
     },
     //specifico quali relazioni includere nella risposta
     include : {
