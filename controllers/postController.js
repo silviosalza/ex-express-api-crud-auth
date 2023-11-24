@@ -47,8 +47,13 @@ const newPost = await prisma.post.create({
             }))
         }
     },
+    //specifico quali relazioni includere nella risposta
     include : {
-        tags: true
+        tags: {
+            select:{
+                name: true
+            }
+        }
         
     }
 })
