@@ -5,6 +5,6 @@ const tagController = require("../controllers/tagController.js");
 
 
 //rotta store
-router.tag("/", tagController.store)
+router.post("/", tagController.store)
 
 module.exports = router;
