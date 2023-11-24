@@ -2,13 +2,14 @@ const express = require("express");
 const routeNotFoundMiddleware = require('./middlewares/routeNotFound');
 const postRouter = require("./routers/postRouter")
 const tagRouter = require("./routers/tagRouter")
+const categoryRouter = require("./routers/categoryRouter")
 const app = express();
 
 
 app.use(express.json());
-
 app.use("/posts", postRouter)
 app.use("/tags", tagRouter)
+app.use("/category", categoryRouter)
 
 app.use(routeNotFoundMiddleware)
 app.listen(process.env.PORT || 3000 , () =>{

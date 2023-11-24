@@ -15,6 +15,13 @@ const data = await prisma.post.findMany({
         content:{
             contains:postToFind.content
         }
+    },
+    include:{
+        tags: {
+            select:{
+                name: true
+            }
+        }
     }
 })
 
