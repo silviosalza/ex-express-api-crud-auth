@@ -39,6 +39,12 @@ res.json({user, token})
 
 
 async function login(req,res){
+
+const validation = validationResult(req)
+if(!validation.isEmpty()){
+    return res.status(422).json(validation.array())
+}
+
     res.send("funziona")
 
 }
