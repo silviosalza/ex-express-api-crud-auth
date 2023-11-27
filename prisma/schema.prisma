@@ -48,7 +48,7 @@ model Tag{
 model User {
   id Int @id @default(autoincrement())
   name String @unique @db.VarChar(30)
-  email String @db.VarChar(30)
+  email String @unique @db.VarChar(30)
   role String @default("user")
   password String
   createdAt DateTime @default(now())

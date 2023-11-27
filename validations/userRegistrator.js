@@ -1,3 +1,6 @@
+const { PrismaClient } = require("@prisma/client");
+const prisma = new PrismaClient();
+
 module.exports = {
     name: {
         in: ["body"],
@@ -25,11 +28,24 @@ module.exports = {
                 min: 5
             }
         },
-        errorMessage: "Email non valida"
+         custom:{
+             options: async (value) =>{
+                 const emailAlreadyUsed = await prisma.user.findUnique({
+                     where:{
+                         email:value
+                     }
+                 })
+
+                 if(emailAlreadyUsed){
+                     return Promise.reject("Email già in uso")
+                 }
+                 return true
+             }
+         },
     },
     password: {
         in: ["body"],
-        isStongPassword: {
+        isStrongPassword: {
             options:{
                 minLength: 8,
                 minLowerCase:1,

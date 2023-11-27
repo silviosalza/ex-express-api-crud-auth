@@ -20,6 +20,13 @@ sanitizedData.password = await bcrypt.hash(sanitizedData.password , 10)
  const user = await prisma.user.create({
     data:{
         ...sanitizedData,
+    },
+    select:{
+        id: true,
+        name: true,
+        email: true,
+        role: true,
+
     }
  })
 
