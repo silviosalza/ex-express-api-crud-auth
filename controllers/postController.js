@@ -1,6 +1,6 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
-const {validationResult} = require("express-validator")
+const {validationResult, matchedData} = require("express-validator")
 
 
 async function index(req,res){
@@ -50,7 +50,9 @@ const validation = validationResult(req)
 if(!validation.isEmpty()){
     return res.status(422).json(validation.array())
 }
+//estraggo dal body solo i dati che ci servono e che sono stati validati dal middleware
 const postToAdd = req.body
+console.log(postToAdd);
 const newPost = await prisma.post.create({
     data: {
         title: postToAdd.title,
