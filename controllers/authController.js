@@ -44,10 +44,34 @@ const validation = validationResult(req)
 if(!validation.isEmpty()){
     return res.status(422).json(validation.array())
 }
+//recuper i dat inseriti dall'utente
+const {email,password} = req.body
+
+//controllo che si sia un utente con quell email
+const user = await prisma.user.findUnique({
+    where:{
+        email: email,
+    }
+});
+if(!user){
+    throw new Error("Utente non trovato")
+}
+//controllare che la pass sia corretta
+const passMatch = await bcrypt.compare(password, user.password);
+//mi ritorna un booleano
+if(!passMatch){
+    throw new Error("Password errata")
+}
+//generare il toke JWT
+
+
 
     res.send("funziona")
 
 }
+
+
+
 
 module.exports = {
     register,
