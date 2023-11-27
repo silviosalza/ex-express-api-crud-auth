@@ -1,5 +1,6 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
+const {validationResult} = require("express-validator")
 
 
 async function index(req,res){
@@ -45,6 +46,10 @@ return res.json(data)
 }
 
 async function store(req,res){
+const validation = validationResult(req)
+if(!validation.isEmpty()){
+    return res.status(422).json(validation.array())
+}
 const postToAdd = req.body
 const newPost = await prisma.post.create({
     data: {
