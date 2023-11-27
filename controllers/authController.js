@@ -51,7 +51,7 @@ const {email,password} = req.body
 const user = await prisma.user.findUnique({
     where:{
         email: email,
-    }
+    },
 });
 if(!user){
     throw new Error("Utente non trovato")
@@ -62,11 +62,11 @@ const passMatch = await bcrypt.compare(password, user.password);
 if(!passMatch){
     throw new Error("Password errata")
 }
-//generare il toke JWT
+//generare il token JWT
+const token = jsonwebtoken.sign(user, process.env.JWT_SECRET, {expiresIn: "1h"})
+delete user.password
 
-
-
-    res.send("funziona")
+res.json({user, token})
 
 }
 
