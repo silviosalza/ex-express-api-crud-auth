@@ -2,7 +2,7 @@ const jsonwebtoken = require("jsonwebtoken")
 
 module.exports = (req,res,next) => {
     //leggere il bearer token dell header della richiesta
-    const bearer = req.headers.authorizarion;
+    const bearer = req.headers.authorization;
 
     //controllo bearer
     if(!bearer || !bearer.startsWith("Bearer")){

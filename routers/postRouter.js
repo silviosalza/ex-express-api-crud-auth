@@ -12,7 +12,7 @@ router.get("/", postController.index)
 //rotta show
 router.get("/:slug", postController.show)
 //rotta store
-router.post("/", checkSchema(postCreate), authHandler,postController.store)
+router.post("/",authHandler, checkSchema(postCreate),postController.store)
 //rotta update
 router.put("/:slug",authHandler, postController.update)
 //rotta delete
