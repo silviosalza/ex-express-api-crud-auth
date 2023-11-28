@@ -36,10 +36,10 @@ return res.json(data)
 }
 
 async function show(req,res){
-const slug = req.params.slug
+const id = parseInt(req.params.id)
 const data = await prisma.post.findUnique({
     where: {
-        slug: slug,
+        id: id,
     }
 })
 return res.json(data)  
@@ -64,11 +64,7 @@ const newPost = await prisma.post.create({
                 "id": tagId
             }))
         },
-        category:{
-            connect:{
-                id: postToAdd.categoryId
-            }
-        } 
+        category:postToAdd?.categoryId
     },
     //specifico quali relazioni includere nella risposta
     include : {
@@ -85,12 +81,12 @@ return res.json(newPost)
 
 
 async function update(req,res){
-    const slug = req.params.slug;
+    const id = parseInt(req.params.id);
     const postToUpdate = req.body;
 
     const data = await prisma.post.findUnique({
         where: {
-            slug: slug,
+            id: id,
         }
     })
     if(!data){
@@ -99,7 +95,7 @@ async function update(req,res){
     const postUpdated = await prisma.post.update({
        data: postToUpdate,
        where: {
-        slug: slug
+        id: id
        }
     })
    return res.json(postUpdated) 
@@ -108,10 +104,10 @@ async function update(req,res){
 
 
 async function destroy(req,res){
-    const slug = req.params.slug;
+    const id = parseInt(req.params.id);
 await prisma.post.delete({
     where: {
-        slug: slug,
+        id: id,
     }
 })
     return res.json({message: "Post obliterato"})
