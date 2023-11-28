@@ -5,6 +5,7 @@ const categoryController = require("../controllers/categoryController.js");
 
 
 //rotta store
+router.get("/", categoryController.index)
 router.post("/", categoryController.store)
 
 module.exports = router;

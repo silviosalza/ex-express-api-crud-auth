@@ -1,6 +1,14 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
+async function index(req,res){
+    
+//find many ritorna una promise, quindi faccio un await
+const data = await prisma.category.findMany({  
+})
+
+return res.json(data)
+}
 
 async function store(req,res){
     const catData = req.body
@@ -15,5 +23,6 @@ async function store(req,res){
 module.exports = {
     
         store,
+        index
        
 }
